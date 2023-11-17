@@ -1,0 +1,30 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const PORT = 3000;
+
+app.use(bodyParser.json());
+
+// Sample data for animals
+let animals = [
+  { id: 1, name: 'Dog', type: 'Pet' },
+  { id: 2, name: 'Cat', type: 'Pet' },
+  // Add more sample data
+];
+
+// Get all animals
+app.get('/animals', (req, res) => {
+  res.json(animals);
+});
+
+// Add a new animal
+app.post('/animals', (req, res) => {
+  const { name, type } = req.body;
+  const newAnimal = { id: animals.length + 1, name, type };
+  animals.push(newAnimal);
+  res.json(newAnimal);
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
